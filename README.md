@@ -28,6 +28,11 @@ css-astdiff a.css b.css
 
 ```
 $ css-astdiff a.css b.css --verbose
+23 extra rules and 23 missing rules between a.css and b.css
+```
+
+```
+$ css-astdiff a.css b.css --verbose
 extra:
         #header ul {
           display: -webkit-box;
@@ -42,6 +47,7 @@ missing:
           display: -webkit-flex;
           display: flex;
         }
+23 extra rules and 23 missing rules between a.css and b.css
 ```
 
 
@@ -60,13 +66,17 @@ css-orderdiff a.css b.css
 #### Output
 
 ```
+$ css-orderdiff a.css b.css
+order changed: #footDisplay
+order changed: .error #mainDisplay
+```
+
+```
 $ css-orderdiff a.css b.css --verbose
 order changed: #footDisplay
         become to be higher than: .error #mainDisplay,
                 .webView01 #mainDisplay
-        become to be lower than:
 order changed: .error #mainDisplay
-        become to be higher than:
         become to be lower than: #footDisplay
 ```
 
