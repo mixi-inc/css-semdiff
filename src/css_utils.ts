@@ -1,3 +1,4 @@
+/// <reference path="typings/bundle.d.ts" />
 /// <reference path="typings/css/css.d.ts" />
 
 import fs = require("fs");
@@ -12,11 +13,11 @@ export function collectRuleNodes(styleSheet: css.StyleSheet): css.RuleNode[] {
 }
 
 export function nodeEquals(nodeA: css.Node, nodeB: css.Node): boolean {
-  return getNodeId(nodeA) === getNodeId(nodeB);
+  return hashNode(nodeA) === hashNode(nodeB);
 }
 
-export function getNodeId(node: css.Node): string {
-  return JSON.stringify(node);
+export function hashNode(node: css.Node): string {
+  return css.stringify(createDummyStyleSheet(node), { compress: true });
 }
 
 export function uniformNode(node: css.Node): css.Node[] {
@@ -48,7 +49,7 @@ export function parseFiles(filePathA: string, filePathB: string): Promise<[css.S
 
 export function parseFile(filePath: string): Promise<css.StyleSheet> {
   return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf8', (err, data) => {
+    fs.readFile(filePath, "utf8", (err, data) => {
       if (err) {
         reject(err);
         return;
@@ -57,4 +58,43 @@ export function parseFile(filePath: string): Promise<css.StyleSheet> {
       resolve(css.parse(data, { source: filePath }));
     });
   });
+}
+
+export function createDummyStyleSheet(node: css.Node): css.StyleSheet {
+  const parsingErrors: Error[] = [];
+  return {
+    type: "stylesheet",
+    stylesheet: {
+      rules: [node],
+      parsingErrors,
+    },
+  };
+}
+
+export class NodeSet {
+  private store: { [id: string]: css.Node } = {};
+  private nodes: css.Node[] = [];
+
+  constructor(nodes: css.Node[] = []) {
+    nodes.forEach((node) => this.add(node));
+  }
+
+  public sub(set: NodeSet): NodeSet {
+    return new NodeSet(flatMap(this.nodes, (node) => set.contains(node) ? [] : [node]));
+  }
+
+  public add(node: css.Node): void {
+    const hash = hashNode(node);
+    this.store[hash] = node;
+    this.nodes.push(node);
+  }
+
+  public contains(node: css.Node): boolean {
+    const hash = hashNode(node);
+    return hash in this.store;
+  }
+
+  public toArray(): css.Node[] {
+    return [].concat(this.nodes);
+  }
 }

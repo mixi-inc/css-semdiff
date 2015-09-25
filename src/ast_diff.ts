@@ -3,14 +3,11 @@
 import css = require("css");
 import {
   flatMap,
-  values,
   isEmpty,
 } from "./collection_utils";
 import {
-  collectRuleNodes,
   uniformNode,
-  getNodeId,
-  nodeEquals,
+  NodeSet,
 } from "./css_utils";
 
 type AstDiff = {
@@ -20,48 +17,38 @@ type AstDiff = {
 };
 
 export function astDiff(a: css.StyleSheet, b: css.StyleSheet): AstDiff {
-  const ruleNodesA = collectRuleNodes(a);
-  const ruleNodesB = collectRuleNodes(b);
-  return astDiffImpl(ruleNodesA, ruleNodesB);
+  return astDiffImpl(a.stylesheet.rules, b.stylesheet.rules);
 }
 
 function astDiffImpl(nodesA: css.Node[], nodesB: css.Node[]): AstDiff {
-  const missingNodeMap: { [id: string]: css.Node } = {};
-  let extraNodes: css.Node[];
-
   const uniformedNodesA = flatMap(nodesA, uniformNode);
   const uniformedNodesB = flatMap(nodesB, uniformNode);
 
-  let nodeA: css.Node;
-  let nodeB: css.Node;
-
-  while (!isEmpty(uniformedNodesA) || !isEmpty(uniformedNodesB)) {
-    if (isEmpty(uniformedNodesB)) {
-      extraNodes = uniformedNodesA;
-      break;
-    }
-
-    nodeB = uniformedNodesB.shift();
-
-    let nodeIdB = getNodeId(nodeB);
-    if (nodeIdB in missingNodeMap) {
-      delete missingNodeMap[nodeIdB];
-      continue;
-    }
-
-    nodeA = uniformedNodesA.shift();
-
-    if (!nodeEquals(nodeA, nodeB)) {
-      missingNodeMap[nodeIdB] = nodeB;
-      continue;
-    }
+  if (isEmpty(uniformedNodesA)) {
+    return {
+      changed: true,
+      missing: [],
+      extra: uniformedNodesB,
+    };
   }
 
-  const missingNodes = values(missingNodeMap);
+  if (isEmpty(uniformedNodesB)) {
+    return {
+      changed: true,
+      missing: uniformedNodesA,
+      extra: [],
+    };
+  }
+
+  const nodeSetA = new NodeSet(uniformedNodesA);
+  const nodeSetB = new NodeSet(uniformedNodesB);
+
+  const missingNodes = nodeSetA.sub(nodeSetB).toArray();
+  const extraNodes = nodeSetB.sub(nodeSetA).toArray();
 
   return {
     changed: !(isEmpty(missingNodes) && isEmpty(extraNodes)),
-    extra: extraNodes || [],
     missing: missingNodes,
+    extra: extraNodes,
   };
 }

@@ -3,7 +3,7 @@
 
 import commander = require("commander");
 import css = require("css");
-import {parseFiles} from "../css_utils";
+import {parseFiles, createDummyStyleSheet} from "../css_utils";
 import {astDiff} from "../ast_diff";
 import {isEmpty} from "../collection_utils";
 
@@ -50,17 +50,6 @@ function formatNodes(nodes: css.Node[], msg: string): string {
     .map((styleSheet) => css.stringify(styleSheet))
     .map((cssString) => `${msg}:\n${indent(cssString)}`)
     .join("\n\n");
-}
-
-function createDummyStyleSheet(node: css.Node): css.StyleSheet {
-  const parsingErrors: Error[] = [];
-  return {
-    type: "stylesheet",
-    stylesheet: {
-      rules: [node],
-      parsingErrors,
-    },
-  };
 }
 
 function indent(str: string): string {
