@@ -57,7 +57,7 @@
     ],
     "typedef-whitespace": true,
     "use-strict": true,
-    "variable-name": true,
+    "variable-name": false,
     "whitespace": true
   }
 }
