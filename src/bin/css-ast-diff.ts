@@ -27,14 +27,18 @@ function astDiffByFiles(filePathA: string, filePathB: string, options?: Options)
     .then((tuple) => astDiff(tuple[0], tuple[1]))
     .then((result) => {
       const {changed, extra, missing} = result;
-      if (changed && options.verbose) {
-        if (!isEmpty(extra)) {
-          console.log(formatNodes(extra, "extra"));
-        }
+      if (changed) {
+        if (options.verbose) {
+          if (!isEmpty(extra)) {
+            console.log(formatNodes(extra, "extra"));
+          }
 
-        if (!isEmpty(missing)) {
-          console.log(formatNodes(missing, "missing"));
+          if (!isEmpty(missing)) {
+            console.log(formatNodes(missing, "missing"));
+          }
         }
+        console.log(`${extra.length} extra rules and ${missing.length} missing rules ` +
+            `between ${filePathA} and ${filePathB}`);
       }
 
       return changed ? StatusCode.CHANGED : StatusCode.NOT_CHANGED;

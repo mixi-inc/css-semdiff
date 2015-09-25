@@ -2,7 +2,7 @@
 /// <reference path="../typings/css/css.d.ts" />
 
 import commander = require("commander");
-import {values} from "../collection_utils";
+import {values, isEmpty} from "../collection_utils";
 import {parseFiles} from "../css_utils";
 import {orderDiff} from "../order_diff";
 
@@ -36,8 +36,12 @@ function orderDiffByFiles(filePathA: string, filePathB: string, options: Options
           console.log(`order changed: ${selector}`);
 
           if (options.verbose) {
-            console.log(`\tbecome to be higher than: ${uptrends.join(",\n\t\t")}`);
-            console.log(`\tbecome to be lower than: ${downtrends.join(",\n\t\t")}`);
+            if (!isEmpty(uptrends)) {
+              console.log(`\tbecome to be higher than: ${uptrends.join(",\n\t\t")}`);
+            }
+            if (!isEmpty(downtrends)) {
+              console.log(`\tbecome to be lower than: ${downtrends.join(",\n\t\t")}`);
+            }
           }
         }
       });
