@@ -37,10 +37,10 @@ function orderDiffByFiles(filePathA: string, filePathB: string, options: Options
 
           if (options.verbose) {
             if (!isEmpty(uptrends)) {
-              console.log(`\tbecome to be higher than:\n\t\t${uptrends.join(",\n\t\t")}`);
+              console.log(`\tbecome to be higher than:\n\t\t${uptrends.join(",\n\t\t")}\n`);
             }
             if (!isEmpty(downtrends)) {
-              console.log(`\tbecome to be lower than:\n\t\t${downtrends.join(",\n\t\t")}`);
+              console.log(`\tbecome to be lower than:\n\t\t${downtrends.join(",\n\t\t")}\n`);
             }
           }
         }

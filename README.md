@@ -74,10 +74,13 @@ order changed: .error #mainDisplay
 ```
 $ css-orderdiff a.css b.css --verbose
 order changed: #footDisplay
-        become to be higher than: .error #mainDisplay,
+        become to be higher than:
+                .error #mainDisplay,
                 .webView01 #mainDisplay
+
 order changed: .error #mainDisplay
-        become to be lower than: #footDisplay
+        become to be lower than:
+                #footDisplay
 ```
 
 
