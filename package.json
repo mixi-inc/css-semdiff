@@ -1,0 +1,40 @@
+{
+  "name": "cssdiff",
+  "version": "0.0.0",
+  "description": "Semantic diff tool for CSS",
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^2.8.1",
+    "css": "^2.2.1",
+    "es6-promise": "^3.0.2"
+  },
+  "devDependencies": {
+    "dtsm": "^0.11.0",
+    "eslint": "^1.5.1",
+    "jscs": "^2.1.1",
+    "tslint": "^2.5.0",
+    "typescript": "^1.6.2"
+  },
+  "scripts": {
+    "postinstall": "dtsm install && npm build",
+    "test": "mocha tests",
+    "watch": "tsc --watch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kuniwak/cssdiff"
+  },
+  "keywords": [
+    "css",
+    "diff",
+    "semantic",
+    "ast"
+  ],
+  "author": "Kuniwak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kuniwak/cssdiff/issues"
+  },
+  "homepage": "https://github.com/Kuniwak/cssdiff"
+}
