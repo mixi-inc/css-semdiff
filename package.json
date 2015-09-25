@@ -1,5 +1,5 @@
 {
-  "name": "cssdiff",
+  "name": "css-semdiff",
   "version": "0.0.0",
   "description": "Semantic diff tool for CSS",
   "main": "index.js",
@@ -16,10 +16,15 @@
     "typescript": "^1.6.2"
   },
   "scripts": {
-    "postinstall": "dtsm install && npm build",
-    "test": "mocha tests",
+    "postinstall": "dtsm install",
+    "build": "dtsm install && tsc",
     "watch": "tsc --watch",
-    "build": "tsc"
+    "pretest": "npm run build",
+    "test": "mocha built/tests"
+  },
+  "bin": {
+    "css-astdiff": "built/bin/css-ast-diff.js",
+    "css-orderdiff": "built/bin/css-order-diff.js"
   },
   "repository": {
     "type": "git",
