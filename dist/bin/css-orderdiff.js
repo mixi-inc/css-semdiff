@@ -21,22 +21,20 @@ function orderDiffByFiles(filePathA, filePathB, options) {
     css_utils_1.parseFiles(filePathA, filePathB)
         .then(function (tuple) { return order_diff_1.orderDiff(tuple[0], tuple[1]); })
         .then(function (result) {
-        Object.keys(result).forEach(function (selector) {
-            var _a = result[selector], changed = _a.changed, uptrends = _a.uptrends, downtrends = _a.downtrends;
-            if (changed) {
-                console.log("order changed: " + selector);
-                if (options.verbose) {
-                    if (!collection_utils_1.isEmpty(uptrends)) {
-                        console.log("\tbecome to be higher than:\n\t\t" + uptrends.join(",\n\t\t") + "\n");
-                    }
-                    if (!collection_utils_1.isEmpty(downtrends)) {
-                        console.log("\tbecome to be lower than:\n\t\t" + downtrends.join(",\n\t\t") + "\n");
-                    }
+        var changedSelectors = Object.keys(result);
+        changedSelectors.forEach(function (selector) {
+            var _a = result[selector], uptrends = _a.uptrends, downtrends = _a.downtrends;
+            console.log("order changed: " + selector);
+            if (options.verbose) {
+                if (!collection_utils_1.isEmpty(uptrends)) {
+                    console.log("\tbecome to be lower than:\n\t\t" + uptrends.join(",\n\t\t") + "\n");
+                }
+                if (!collection_utils_1.isEmpty(downtrends)) {
+                    console.log("\tbecome to be higher than:\n\t\t" + downtrends.join(",\n\t\t") + "\n");
                 }
             }
         });
-        var changed = collection_utils_1.values(result).some(function (entry) { return entry.changed; });
-        return changed ? StatusCode.CHANGED : StatusCode.NOT_CHANGED;
+        return changedSelectors.length > 0 ? StatusCode.CHANGED : StatusCode.NOT_CHANGED;
     }, function (err) {
         console.error(err);
         return StatusCode.ERROR;
@@ -46,4 +44,4 @@ function orderDiffByFiles(filePathA, filePathB, options) {
 orderDiffByFiles(cli.args[0], cli.args[1], {
     verbose: cli.opts().verbose,
 });
-//# sourceMappingURL=css-order-diff.js.map
+//# sourceMappingURL=css-orderdiff.js.map

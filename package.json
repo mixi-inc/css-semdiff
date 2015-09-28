@@ -23,8 +23,8 @@
     "test": "mocha dist/tests"
   },
   "bin": {
-    "css-astdiff": "dist/bin/css-ast-diff.js",
-    "css-orderdiff": "dist/bin/css-order-diff.js"
+    "css-astdiff": "dist/bin/css-astdiff.js",
+    "css-orderdiff": "dist/bin/css-orderdiff.js"
   },
   "repository": {
     "type": "git",

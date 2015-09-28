@@ -50,4 +50,4 @@ function indent(str) {
 astDiffByFiles(cli.args[0], cli.args[1], {
     verbose: cli.opts().verbose,
 });
-//# sourceMappingURL=css-ast-diff.js.map
+//# sourceMappingURL=css-astdiff.js.map

@@ -3,7 +3,7 @@
 /// <reference path="../typings/css/css.d.ts" />
 
 import commander = require("commander");
-import {values, isEmpty} from "../collection_utils";
+import {isEmpty} from "../collection_utils";
 import {parseFiles} from "../css_utils";
 import {orderDiff} from "../order_diff";
 
@@ -30,25 +30,23 @@ function orderDiffByFiles(filePathA: string, filePathB: string, options: Options
   parseFiles(filePathA, filePathB)
     .then((tuple) => orderDiff(tuple[0], tuple[1]))
     .then((result) => {
-      Object.keys(result).forEach((selector) => {
-        const {changed, uptrends, downtrends} = result[selector];
+      const changedSelectors = Object.keys(result);
+      changedSelectors.forEach((selector) => {
+        const {uptrends, downtrends} = result[selector];
 
-        if (changed) {
-          console.log(`order changed: ${selector}`);
+        console.log(`order changed: ${selector}`);
 
-          if (options.verbose) {
-            if (!isEmpty(uptrends)) {
-              console.log(`\tbecome to be higher than:\n\t\t${uptrends.join(",\n\t\t")}\n`);
-            }
-            if (!isEmpty(downtrends)) {
-              console.log(`\tbecome to be lower than:\n\t\t${downtrends.join(",\n\t\t")}\n`);
-            }
+        if (options.verbose) {
+          if (!isEmpty(uptrends)) {
+            console.log(`\tbecome to be lower than:\n\t\t${uptrends.join(",\n\t\t")}\n`);
+          }
+          if (!isEmpty(downtrends)) {
+            console.log(`\tbecome to be higher than:\n\t\t${downtrends.join(",\n\t\t")}\n`);
           }
         }
       });
 
-      const changed = values(result).some((entry) => entry.changed);
-      return changed ? StatusCode.CHANGED : StatusCode.NOT_CHANGED;
+      return changedSelectors.length > 0 ? StatusCode.CHANGED : StatusCode.NOT_CHANGED;
     }, (err) => {
       console.error(err);
       return StatusCode.ERROR;
