@@ -27,11 +27,12 @@ function orderDiffImpl(selectorsA, selectorsB) {
         var downtrends = new collection_utils_1.OrderedStringSet(lowersAfter)
             .sub(new collection_utils_1.OrderedStringSet(lowersBefore))
             .toArray();
-        result[selectorA] = {
-            changed: !(collection_utils_1.isEmpty(uptrends) && collection_utils_1.isEmpty(downtrends)),
-            uptrends: uptrends,
-            downtrends: downtrends,
-        };
+        if (!(collection_utils_1.isEmpty(uptrends) && collection_utils_1.isEmpty(downtrends))) {
+            result[selectorA] = {
+                uptrends: uptrends,
+                downtrends: downtrends,
+            };
+        }
     });
     return result;
 }

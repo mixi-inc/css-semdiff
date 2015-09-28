@@ -11,7 +11,6 @@ import {collectRuleNodes} from "./css_utils";
 
 export interface OrderDiffResult {
   [selector: string]: {
-    changed: boolean;
     uptrends: css.Selector[];
     downtrends: css.Selector[];
   };
@@ -51,11 +50,12 @@ function orderDiffImpl(selectorsA: css.Selector[], selectorsB: css.Selector[]): 
       .sub(new OrderedStringSet(lowersBefore))
       .toArray();
 
-    result[selectorA] = {
-      changed: !(isEmpty(uptrends) && isEmpty(downtrends)),
-      uptrends,
-      downtrends,
-    };
+    if (!(isEmpty(uptrends) && isEmpty(downtrends))) {
+      result[selectorA] = {
+        uptrends,
+        downtrends,
+      };
+    }
   });
 
   return result;
