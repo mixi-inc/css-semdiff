@@ -79,6 +79,9 @@ var NodeSet = (function () {
     };
     NodeSet.prototype.add = function (node) {
         var hash = hashNode(node);
+        if (hash in this.store) {
+            return;
+        }
         this.store[hash] = node;
         this.nodes.push(node);
     };

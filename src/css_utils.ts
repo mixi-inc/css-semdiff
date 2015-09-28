@@ -85,6 +85,7 @@ export class NodeSet {
 
   public add(node: css.Node): void {
     const hash = hashNode(node);
+    if (hash in this.store) { return; }
     this.store[hash] = node;
     this.nodes.push(node);
   }
