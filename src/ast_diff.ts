@@ -10,17 +10,17 @@ import {
   NodeSet,
 } from "./css_utils";
 
-type AstDiff = {
+export type AstDiffResult = {
   changed: boolean;
   extra: css.Node[];
   missing: css.Node[];
 };
 
-export function astDiff(a: css.StyleSheet, b: css.StyleSheet): AstDiff {
+export function astDiff(a: css.StyleSheet, b: css.StyleSheet): AstDiffResult {
   return astDiffImpl(a.stylesheet.rules, b.stylesheet.rules);
 }
 
-function astDiffImpl(nodesA: css.Node[], nodesB: css.Node[]): AstDiff {
+function astDiffImpl(nodesA: css.Node[], nodesB: css.Node[]): AstDiffResult {
   const uniformedNodesA = flatMap(nodesA, uniformNode);
   const uniformedNodesB = flatMap(nodesB, uniformNode);
 
