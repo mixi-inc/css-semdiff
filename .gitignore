@@ -1,1 +1,5 @@
 node_modules
+typings
+!src/typings
+bundle.d.ts
+dist/tests
