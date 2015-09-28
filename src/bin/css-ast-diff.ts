@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 /// <reference path="../typings/bundle.d.ts" />
 /// <reference path="../typings/css/css.d.ts" />
 

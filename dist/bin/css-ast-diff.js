@@ -1,5 +1,4 @@
-/// <reference path="../typings/bundle.d.ts" />
-/// <reference path="../typings/css/css.d.ts" />
+#! /usr/bin/env node
 var commander = require("commander");
 var css = require("css");
 var css_utils_1 = require("../css_utils");
