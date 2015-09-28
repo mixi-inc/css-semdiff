@@ -5,7 +5,7 @@ Install
 -------
 
 ```shell
-npm install -g git@github.lo.mixi.jp:Kuniwak/css-semdiff
+npm install -g git://github.lo.mixi.jp/Kuniwak/css-semdiff
 ```
 
 

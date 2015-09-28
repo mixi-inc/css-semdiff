@@ -4,31 +4,31 @@
   "description": "Semantic diff tool for CSS",
   "main": "index.js",
   "dependencies": {
+    "dtsm": "^0.11.0",
     "commander": "^2.8.1",
     "css": "^2.2.1",
-    "es6-promise": "^3.0.2"
-  },
-  "devDependencies": {
-    "dtsm": "^0.11.0",
-    "eslint": "^1.5.1",
-    "jscs": "^2.1.1",
-    "tslint": "^2.5.0",
+    "es6-promise": "^3.0.2",
     "typescript": "^1.6.2"
   },
+  "devDependencies": {
+    "eslint": "^1.5.1",
+    "jscs": "^2.1.1",
+    "tslint": "^2.5.0"
+  },
   "scripts": {
-    "postinstall": "dtsm install",
+    "postinstall": "npm run build",
     "build": "dtsm install && tsc",
     "watch": "tsc --watch",
     "pretest": "npm run build",
-    "test": "mocha built/tests"
+    "test": "mocha dist/tests"
   },
   "bin": {
-    "css-astdiff": "built/bin/css-ast-diff.js",
-    "css-orderdiff": "built/bin/css-order-diff.js"
+    "css-astdiff": "dist/bin/css-ast-diff.js",
+    "css-orderdiff": "dist/bin/css-order-diff.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kuniwak/cssdiff"
+    "url": "http://github.lo.mixi.jp/Kuniwak/css-semdiff"
   },
   "keywords": [
     "css",
