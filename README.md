@@ -1,6 +1,10 @@
 CSS Semantic Diff
 =================
 
+[![Build Status](https://travis-ci.org/mixi-inc/css-semdiff.svg)](https://travis-ci.org/mixi-inc/css-semdiff)
+[![npm version](https://badge.fury.io/js/css-semdiff.svg)](http://badge.fury.io/js/css-semdiff)
+
+
 Install
 -------
 
