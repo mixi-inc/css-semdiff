@@ -5,3 +5,6 @@ sudo: false
 nodejs:
  - "4.1"
  - "0.12"
+
+notifications:
+  - email: false
