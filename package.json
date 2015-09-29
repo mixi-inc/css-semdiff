@@ -13,6 +13,7 @@
   "devDependencies": {
     "eslint": "^1.5.1",
     "jscs": "^2.1.1",
+    "mocha": "^2.3.3",
     "tslint": "^2.5.0"
   },
   "scripts": {
