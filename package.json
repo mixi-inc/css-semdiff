@@ -27,6 +27,9 @@
     "css-astdiff": "dist/bin/css-astdiff.js",
     "css-orderdiff": "dist/bin/css-orderdiff.js"
   },
+  "engines": {
+    "node" : ">=0.12"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.lo.mixi.jp/Kuniwak/css-semdiff"
