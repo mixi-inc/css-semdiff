@@ -1,0 +1,7 @@
+language: node_js
+
+sudo: false
+
+nodejs:
+ - "4.1"
+ - "0.12"
