@@ -1,6 +1,6 @@
 {
   "name": "css-semdiff",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Semantic diff tool for CSS",
   "main": "index.js",
   "dependencies": {
