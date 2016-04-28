@@ -11,12 +11,14 @@
     "typescript": "^1.8.10"
   },
   "devDependencies": {
+    "npm-run-all": "^1.8.0",
     "mocha": "^2.3.3",
     "tslint": "^3.8.1"
   },
   "scripts": {
-    "postinstall": "npm run build",
-    "build": "dtsm install && tsc",
+    "prepublish": "npm-run-all lint typings build test",
+    "typings": "dtsm install",
+    "build": "tsc",
     "watch": "tsc --watch",
     "pretest": "npm run build",
     "lint": "tslint src/**/*.ts",
