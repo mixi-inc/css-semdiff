@@ -11,11 +11,11 @@ import {
   NodeSet,
 } from "./css_utils";
 
-export type AstDiffResult = {
+export interface AstDiffResult {
   changed: boolean;
   extra: css.Node[];
   missing: css.Node[];
-};
+}
 
 export function astDiff(a: css.StyleSheet, b: css.StyleSheet): AstDiffResult {
   return astDiffImpl(a.stylesheet.rules, b.stylesheet.rules);
