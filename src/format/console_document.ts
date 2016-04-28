@@ -44,7 +44,7 @@ export namespace ConsoleDocument {
   }
 
 
-  export function concat(docs: (Document | string)[]): Document {
+  export function concat(docs: Document[]): Document {
     return Array.prototype.concat.apply([], docs);
   }
 
