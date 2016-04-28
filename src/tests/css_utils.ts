@@ -1,8 +1,8 @@
 /// <reference path="../typings/bundle.d.ts" />
 /// <reference path="../typings/css/css.d.ts" />
 
-import assert = require("assert");
-import css = require("css");
+import * as assert from "assert";
+import * as css from "css";
 import {NodeSet} from "../css_utils";
 
 describe("NodeSet", () => {

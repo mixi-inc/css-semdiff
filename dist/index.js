@@ -8,4 +8,3 @@ exports.default = {
     order: order_diff_1.orderDiff,
     ast: ast_diff_1.astDiff,
 };
-//# sourceMappingURL=index.js.map

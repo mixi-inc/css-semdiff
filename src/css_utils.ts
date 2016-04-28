@@ -1,10 +1,9 @@
 /// <reference path="typings/bundle.d.ts" />
 /// <reference path="typings/css/css.d.ts" />
 
-import fs = require("fs");
-import es6Promise = require("es6-promise");
-const {Promise} = es6Promise;
-import css = require("css");
+import * as fs from "fs";
+import {Promise} from "es6-promise";
+import * as css from "css";
 import {flatMap} from "./collection_utils";
 
 export function collectRuleNodes(styleSheet: css.StyleSheet): css.RuleNode[] {

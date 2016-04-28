@@ -2,8 +2,7 @@
 /// <reference path="typings/css/css.d.ts" />
 "use strict";
 var fs = require("fs");
-var es6Promise = require("es6-promise");
-var Promise = es6Promise.Promise;
+var es6_promise_1 = require("es6-promise");
 var css = require("css");
 var collection_utils_1 = require("./collection_utils");
 function collectRuleNodes(styleSheet) {
@@ -41,11 +40,11 @@ function isRuleNode(node) {
 }
 exports.isRuleNode = isRuleNode;
 function parseFiles(filePathA, filePathB) {
-    return Promise.all([parseFile(filePathA), parseFile(filePathB)]);
+    return es6_promise_1.Promise.all([parseFile(filePathA), parseFile(filePathB)]);
 }
 exports.parseFiles = parseFiles;
 function parseFile(filePath) {
-    return new Promise(function (resolve, reject) {
+    return new es6_promise_1.Promise(function (resolve, reject) {
         fs.readFile(filePath, "utf8", function (err, data) {
             if (err) {
                 reject(err);
@@ -96,4 +95,3 @@ var NodeSet = (function () {
     return NodeSet;
 }());
 exports.NodeSet = NodeSet;
-//# sourceMappingURL=css_utils.js.map

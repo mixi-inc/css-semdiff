@@ -45,4 +45,3 @@ function orderDiffByFiles(filePathA, filePathB, options) {
 orderDiffByFiles(cli.args[0], cli.args[1], {
     verbose: cli.opts().verbose,
 });
-//# sourceMappingURL=css-orderdiff.js.map

@@ -1,6 +1,7 @@
 /// <reference path="typings/css/css.d.ts" />
 
-import css = require("css");
+import * as css from "css";
+
 import {
   flatMap,
   isEmpty,
