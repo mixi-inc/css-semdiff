@@ -19,6 +19,7 @@
     "build": "dtsm install && tsc",
     "watch": "tsc --watch",
     "pretest": "npm run build",
+    "lint": "tslint src/**/*.ts",
     "test": "mocha dist/tests"
   },
   "bin": {
