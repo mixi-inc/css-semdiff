@@ -29,7 +29,7 @@ $ css-astdiff a.css b.css
 #### Comparing streams
 
 ```console
-$ css-astdiff <(cat a.css) <(b.css)
+$ css-astdiff <(cat a.css) <(cat b.css)
 ```
 
 
@@ -101,12 +101,12 @@ $ css-orderdiff <(cat a.css) <(cat b.css)
 #### Output
 
 ```console
-$ css-orderdiff fixtures/order/a.css fixtures/order/b.css
+$ css-orderdiff a.css b.css
 3 selectors changed
 ```
 
 ```console
-$ css-orderdiff fixtures/order/a.css fixtures/order/b.css --verbose
+$ css-orderdiff a.css b.css --verbose
 order changed: a
     become to be lower than:
       b
