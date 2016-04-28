@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+"use strict";
 var commander = require("commander");
 var collection_utils_1 = require("../collection_utils");
 var css_utils_1 = require("../css_utils");

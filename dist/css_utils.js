@@ -1,5 +1,6 @@
 /// <reference path="typings/bundle.d.ts" />
 /// <reference path="typings/css/css.d.ts" />
+"use strict";
 var fs = require("fs");
 var es6Promise = require("es6-promise");
 var Promise = es6Promise.Promise;
@@ -93,6 +94,6 @@ var NodeSet = (function () {
         return [].concat(this.nodes);
     };
     return NodeSet;
-})();
+}());
 exports.NodeSet = NodeSet;
 //# sourceMappingURL=css_utils.js.map

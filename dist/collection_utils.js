@@ -1,3 +1,4 @@
+"use strict";
 var OrderedStringSet = (function () {
     function OrderedStringSet(strings) {
         var _this = this;
@@ -37,7 +38,7 @@ var OrderedStringSet = (function () {
         return [].concat(this.order);
     };
     return OrderedStringSet;
-})();
+}());
 exports.OrderedStringSet = OrderedStringSet;
 function flatten(arrays) {
     var result = [];
