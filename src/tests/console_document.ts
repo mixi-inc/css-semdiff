@@ -4,12 +4,6 @@ import * as assert from "assert";
 import {ConsoleDocument} from "../format/console_document";
 
 
-// XXX: For Node.js v0.12.x
-if (typeof assert.deepStrictEqual !== "function") {
-  assert.deepStrictEqual = assert.deepEqual;
-}
-
-
 describe("ConsoleDocument", () => {
   describe(".format", () => {
     interface TestCase {
