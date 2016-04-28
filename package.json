@@ -12,6 +12,7 @@
     "typescript": "^1.8.10"
   },
   "devDependencies": {
+    "assert-polyfill": "0.0.0",
     "mocha": "^2.3.3",
     "npm-run-all": "^1.8.0",
     "rimraf": "^2.5.2",
@@ -19,18 +20,13 @@
   },
   "scripts": {
     "prepublish": "npm-run-all lint typings build test",
-
     "typings": "dtsm install",
-
     "prebuild": "rimraf dist",
     "build:typescript": "tsc",
     "build": "npm-run-all prebuild build:typescript",
-
     "watch": "tsc --watch",
-
     "pretest": "npm run build",
-    "test": "mocha dist/tests",
-
+    "test": "mocha --opts mocha.opts dist/tests",
     "lint": "tslint src/**/*.ts"
   },
   "bin": {
