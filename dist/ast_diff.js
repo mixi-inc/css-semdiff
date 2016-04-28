@@ -1,4 +1,5 @@
 /// <reference path="typings/css/css.d.ts" />
+"use strict";
 var collection_utils_1 = require("./collection_utils");
 var css_utils_1 = require("./css_utils");
 function astDiff(a, b) {

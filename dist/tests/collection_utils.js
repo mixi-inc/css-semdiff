@@ -1,4 +1,5 @@
 /// <reference path="../typings/bundle.d.ts" />
+"use strict";
 var assert = require("assert");
 var collection_utils_1 = require("../collection_utils");
 describe("OrderedStringSet", function () {

@@ -1,5 +1,6 @@
 /// <reference path="typings/bundle.d.ts" />
 /// <reference path="typings/css/css.d.ts" />
+"use strict";
 var order_diff_1 = require("./order_diff");
 var ast_diff_1 = require("./ast_diff");
 Object.defineProperty(exports, "__esModule", { value: true });
