@@ -12,18 +12,26 @@
     "typescript": "^1.8.10"
   },
   "devDependencies": {
-    "npm-run-all": "^1.8.0",
     "mocha": "^2.3.3",
+    "npm-run-all": "^1.8.0",
+    "rimraf": "^2.5.2",
     "tslint": "^3.8.1"
   },
   "scripts": {
     "prepublish": "npm-run-all lint typings build test",
+
     "typings": "dtsm install",
-    "build": "tsc",
+
+    "prebuild": "rimraf dist",
+    "build:typescript": "tsc",
+    "build": "npm-run-all prebuild build:typescript",
+
     "watch": "tsc --watch",
+
     "pretest": "npm run build",
-    "lint": "tslint src/**/*.ts",
-    "test": "mocha dist/tests"
+    "test": "mocha dist/tests",
+
+    "lint": "tslint src/**/*.ts"
   },
   "bin": {
     "css-astdiff": "dist/bin/css-astdiff.js",
