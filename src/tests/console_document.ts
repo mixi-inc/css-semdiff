@@ -27,11 +27,11 @@ describe("ConsoleDocument", () => {
       },
       {
         document: ["line1", ["line2-1"]],
-        expected: "line1\n\tline2-1",
+        expected: "line1\n  line2-1",
       },
       {
         document: ["line1", ["line2-1", "line2-2"]],
-        expected: "line1\n\tline2-1\n\tline2-2",
+        expected: "line1\n  line2-1\n  line2-2",
       },
       {
         // Empty document should be ignored
