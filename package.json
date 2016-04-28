@@ -9,7 +9,6 @@
     "css": "^2.2.1",
     "dtsm": "^1.0.0",
     "es6-promise": "^3.0.2",
-    "stream-to-promise": "^1.1.0",
     "typescript": "^1.8.10"
   },
   "devDependencies": {

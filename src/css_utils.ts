@@ -1,10 +1,8 @@
 /// <reference path="./typings/bundle.d.ts" />
 /// <reference path="./typings/css/css.d.ts" />
-/// <reference path="./typings/stream-to-promise/stream-to-promise.d.ts" />
 
 import * as Fs from "fs";
 import * as css from "css";
-import * as streamToPromise from "stream-to-promise";
 import {Promise} from "es6-promise";
 import {flatMap} from "./collection_utils";
 
@@ -90,14 +88,6 @@ export function parseFile(filePath: string): Promise<css.StyleSheet> {
       resolve(css.parse(data, { source: filePath }));
     });
   });
-}
-
-
-export function parseStream(stream: NodeJS.ReadableStream, sourceName: string): Promise<css.StyleSheet> {
-  return streamToPromise(stream)
-    .then((buffer) => {
-      return css.parse(buffer.toString("utf-8"), { source: sourceName });
-    });
 }
 
 
