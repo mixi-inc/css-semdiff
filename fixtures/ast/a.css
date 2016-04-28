@@ -1,0 +1,20 @@
+a, b {
+  color: red;
+  background-color: red;
+}
+
+
+i {
+  color: red;
+  background-color: red;
+}
+
+
+.missing-1 {
+  border: none;
+}
+
+
+.missing-2 {
+  border: none;
+}
