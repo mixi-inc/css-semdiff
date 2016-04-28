@@ -7,6 +7,8 @@ import * as css from "css";
 import {parseFiles, createDummyStyleSheet} from "../css_utils";
 import {astDiff} from "../ast_diff";
 import {isEmpty} from "../collection_utils";
+import {getVersion} from "../cli_utils";
+
 
 enum StatusCode {
   NOT_CHANGED = 0,
@@ -14,14 +16,18 @@ enum StatusCode {
   CHANGED = 2,
 }
 
+
 const cli = commander
+  .version(getVersion())
   .usage("[options] <file ...>")
   .option("-V, --verbose", "Display verbose diff")
   .parse(process.argv);
 
+
 type Options = {
   verbose: boolean;
 };
+
 
 function astDiffByFiles(filePathA: string, filePathB: string, options?: Options): void {
   parseFiles(filePathA, filePathB)
@@ -49,6 +55,7 @@ function astDiffByFiles(filePathA: string, filePathB: string, options?: Options)
     .then((statusCode) => process.exit(statusCode));
 }
 
+
 function formatNodes(nodes: css.Node[], msg: string): string {
   return nodes
     .map(createDummyStyleSheet)
@@ -57,9 +64,11 @@ function formatNodes(nodes: css.Node[], msg: string): string {
     .join("\n\n");
 }
 
+
 function indent(str: string): string {
   return str.split("\n").map((line) => `\t${line}`).join("\n");
 }
+
 
 astDiffByFiles(cli.args[0], cli.args[1], {
   verbose: cli.opts().verbose,

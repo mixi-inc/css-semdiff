@@ -6,6 +6,7 @@ import * as commander from "commander";
 import {isEmpty} from "../collection_utils";
 import {parseFiles} from "../css_utils";
 import {orderDiff} from "../order_diff";
+import {getVersion} from "../cli_utils";
 
 enum StatusCode {
   NOT_CHANGED = 0,
@@ -14,6 +15,7 @@ enum StatusCode {
 }
 
 const cli = commander
+  .version(getVersion())
   .usage("[options] <file ...>")
   .option("-V, --verbose", "Display verbose diff")
   .parse(process.argv);
