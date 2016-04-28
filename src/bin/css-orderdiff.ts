@@ -3,9 +3,9 @@
 /// <reference path="../typings/css/css.d.ts" />
 
 import * as commander from "commander";
-import {parseFiles} from "../css_utils";
+import * as css from "css";
 import {orderDiff} from "../order_diff";
-import {getVersion} from "../cli_utils";
+import {getVersion, getStyleSheetPair} from "../cli_utils";
 import {formatOrderDiffResult, formatOrderDiffResultVerbose} from "../format/order_diff";
 import {stringifyErrorLike} from "../error_utils";
 
@@ -29,13 +29,8 @@ interface Options {
 }
 
 
-const defaultOptions: Options = {
-  verbose: false,
-};
-
-
-function orderDiffByFiles(filePathA: string, filePathB: string, options: Options = defaultOptions): void {
-  parseFiles(filePathA, filePathB)
+function runOrderDiff(styleSheets: Promise<[css.StyleSheet, css.StyleSheet]>, options: Options): Promise<void> {
+  return styleSheets
     .then((tuple) => orderDiff(tuple[0], tuple[1]))
     .then((result) => {
       console.log(options.verbose
@@ -57,6 +52,6 @@ function orderDiffByFiles(filePathA: string, filePathB: string, options: Options
 }
 
 
-orderDiffByFiles(cli.args[0], cli.args[1], {
+runOrderDiff(getStyleSheetPair(cli.args), {
   verbose: cli.opts().verbose,
 });

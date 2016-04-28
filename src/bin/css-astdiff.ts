@@ -2,9 +2,9 @@
 /// <reference path="../typings/bundle.d.ts" />
 
 import * as commander from "commander";
-import {parseFiles} from "../css_utils";
+import * as css from "css";
 import {astDiff} from "../ast_diff";
-import {getVersion} from "../cli_utils";
+import {getVersion, getStyleSheetPair} from "../cli_utils";
 import {formatAstDiffResult, formatAstDiffResultVerbose} from "../format/ast_diff";
 import {stringifyErrorLike} from "../error_utils";
 
@@ -28,8 +28,8 @@ interface Options {
 }
 
 
-function astDiffByFiles(filePathA: string, filePathB: string, options?: Options): void {
-  parseFiles(filePathA, filePathB)
+function runAstDiff(styleSheets: Promise<[css.StyleSheet, css.StyleSheet]>, options: Options): Promise<void> {
+  return styleSheets
     .then((tuple) => astDiff(tuple[0], tuple[1]))
     .then((result) => {
       const {changed} = result;
@@ -52,6 +52,6 @@ function astDiffByFiles(filePathA: string, filePathB: string, options?: Options)
 }
 
 
-astDiffByFiles(cli.args[0], cli.args[1], {
+runAstDiff(getStyleSheetPair(cli.args), {
   verbose: cli.opts().verbose,
 });

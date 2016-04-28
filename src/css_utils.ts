@@ -1,9 +1,11 @@
-/// <reference path="typings/bundle.d.ts" />
-/// <reference path="typings/css/css.d.ts" />
+/// <reference path="./typings/bundle.d.ts" />
+/// <reference path="./typings/css/css.d.ts" />
+/// <reference path="./typings/stream-to-promise/stream-to-promise.d.ts" />
 
-import * as fs from "fs";
-import {Promise} from "es6-promise";
+import * as Fs from "fs";
 import * as css from "css";
+import * as streamToPromise from "stream-to-promise";
+import {Promise} from "es6-promise";
 import {flatMap} from "./collection_utils";
 
 
@@ -77,14 +79,9 @@ export function isRuleNode(node: css.Node): node is css.RuleNode {
 }
 
 
-export function parseFiles(filePathA: string, filePathB: string): Promise<[css.StyleSheet, css.StyleSheet]> {
-  return Promise.all([parseFile(filePathA), parseFile(filePathB)]);
-}
-
-
 export function parseFile(filePath: string): Promise<css.StyleSheet> {
   return new Promise((resolve, reject) => {
-    fs.readFile(filePath, "utf8", (err, data) => {
+    Fs.readFile(filePath, "utf8", (err, data) => {
       if (err) {
         reject(err);
         return;
@@ -93,6 +90,14 @@ export function parseFile(filePath: string): Promise<css.StyleSheet> {
       resolve(css.parse(data, { source: filePath }));
     });
   });
+}
+
+
+export function parseStream(stream: NodeJS.ReadableStream, sourceName: string): Promise<css.StyleSheet> {
+  return streamToPromise(stream)
+    .then((buffer) => {
+      return css.parse(buffer.toString("utf-8"), { source: sourceName });
+    });
 }
 
 
