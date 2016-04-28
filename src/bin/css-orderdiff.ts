@@ -6,6 +6,8 @@ import * as commander from "commander";
 import {isEmpty} from "../collection_utils";
 import {parseFiles} from "../css_utils";
 import {orderDiff} from "../order_diff";
+import {getVersion} from "../cli_utils";
+
 
 enum StatusCode {
   NOT_CHANGED = 0,
@@ -13,18 +15,23 @@ enum StatusCode {
   CHANGED = 2,
 }
 
+
 const cli = commander
+  .version(getVersion())
   .usage("[options] <file ...>")
   .option("-V, --verbose", "Display verbose diff")
   .parse(process.argv);
+
 
 type Options = {
   verbose: boolean;
 };
 
+
 const defaultOptions: Options = {
   verbose: false,
 };
+
 
 function orderDiffByFiles(filePathA: string, filePathB: string, options: Options = defaultOptions): void {
   parseFiles(filePathA, filePathB)
@@ -53,6 +60,7 @@ function orderDiffByFiles(filePathA: string, filePathB: string, options: Options
     })
     .then((statusCode) => process.exit(statusCode));
 }
+
 
 orderDiffByFiles(cli.args[0], cli.args[1], {
   verbose: cli.opts().verbose,

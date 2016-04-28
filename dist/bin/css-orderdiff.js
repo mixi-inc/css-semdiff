@@ -4,6 +4,7 @@ var commander = require("commander");
 var collection_utils_1 = require("../collection_utils");
 var css_utils_1 = require("../css_utils");
 var order_diff_1 = require("../order_diff");
+var cli_utils_1 = require("../cli_utils");
 var StatusCode;
 (function (StatusCode) {
     StatusCode[StatusCode["NOT_CHANGED"] = 0] = "NOT_CHANGED";
@@ -11,6 +12,7 @@ var StatusCode;
     StatusCode[StatusCode["CHANGED"] = 2] = "CHANGED";
 })(StatusCode || (StatusCode = {}));
 var cli = commander
+    .version(cli_utils_1.getVersion())
     .usage("[options] <file ...>")
     .option("-V, --verbose", "Display verbose diff")
     .parse(process.argv);
