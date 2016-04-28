@@ -2,8 +2,8 @@
 /// <reference path="../typings/bundle.d.ts" />
 /// <reference path="../typings/css/css.d.ts" />
 
-import commander = require("commander");
-import css = require("css");
+import * as commander from "commander";
+import * as css from "css";
 import {parseFiles, createDummyStyleSheet} from "../css_utils";
 import {astDiff} from "../ast_diff";
 import {isEmpty} from "../collection_utils";

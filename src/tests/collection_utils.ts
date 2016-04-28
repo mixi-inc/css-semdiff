@@ -1,6 +1,6 @@
 /// <reference path="../typings/bundle.d.ts" />
 
-import assert = require("assert");
+import * as assert from "assert";
 import {OrderedStringSet} from "../collection_utils";
 
 describe("OrderedStringSet", () => {

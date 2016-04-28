@@ -2,7 +2,7 @@
 /// <reference path="../typings/bundle.d.ts" />
 /// <reference path="../typings/css/css.d.ts" />
 
-import commander = require("commander");
+import * as commander from "commander";
 import {isEmpty} from "../collection_utils";
 import {parseFiles} from "../css_utils";
 import {orderDiff} from "../order_diff";
