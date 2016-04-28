@@ -6,19 +6,51 @@ import {Promise} from "es6-promise";
 import * as css from "css";
 import {flatMap} from "./collection_utils";
 
+
 export function collectRuleNodes(styleSheet: css.StyleSheet): css.RuleNode[] {
   return flatMap(styleSheet.stylesheet.rules,
       (node) => isRuleNode(node) ? [node] : []);
 }
 
+
+/**
+ * Whether the first node is equivalent to the second one.
+ * This comparison is based on their hash values.
+ * @see hashNode
+ */
 export function nodeEquals(nodeA: css.Node, nodeB: css.Node): boolean {
   return hashNode(nodeA) === hashNode(nodeB);
 }
 
+
+/**
+ * Returns a hash value of the given node.
+ *
+ * The hash value should unique to css properties contained.
+ * It means, following examples A and B should have the same hash value.
+ *
+ *     - Example A: { color: red; }
+ *     - Example B: {\ncolor:red;\n}
+ */
 export function hashNode(node: css.Node): string {
   return css.stringify(createDummyStyleSheet(node), { compress: true });
 }
 
+
+/**
+ * Returns nodes that separated a slector group by their selectors.
+ * We can equate the selector group 'a, b { ... }' to
+ * the group 'b, a { ... }' and the group 'a { ... } b { ... }'.
+ *
+ * For example the selector group is like following:
+ *
+ *     a, b { color: red; }
+ *
+ * this function transform it to:
+ *
+ *     a { color: red; }
+ *     b { color: red; }
+ */
 export function uniformNode(node: css.Node): css.Node[] {
   if (isRuleNode(node)) {
     return uniformRuleNode(node);
@@ -27,6 +59,7 @@ export function uniformNode(node: css.Node): css.Node[] {
     return [node];
   }
 }
+
 
 function uniformRuleNode(ruleNode: css.RuleNode): css.RuleNode[] {
   return ruleNode.selectors.map((selector) => ({
@@ -38,13 +71,16 @@ function uniformRuleNode(ruleNode: css.RuleNode): css.RuleNode[] {
   }));
 }
 
+
 export function isRuleNode(node: css.Node): node is css.RuleNode {
   return node.type === "rule";
 }
 
+
 export function parseFiles(filePathA: string, filePathB: string): Promise<[css.StyleSheet, css.StyleSheet]> {
   return Promise.all([parseFile(filePathA), parseFile(filePathB)]);
 }
+
 
 export function parseFile(filePath: string): Promise<css.StyleSheet> {
   return new Promise((resolve, reject) => {
@@ -59,6 +95,15 @@ export function parseFile(filePath: string): Promise<css.StyleSheet> {
   });
 }
 
+
+export function stringifyCssNode(node: css.Node): string {
+  // XXX: css.stringify can support only css.StyleSheet.
+  //      So, we should create a dummy css.Stylesheet that
+  //      have only a node to stringify.
+  return css.stringify(createDummyStyleSheet(node));
+}
+
+
 export function createDummyStyleSheet(node: css.Node): css.StyleSheet {
   const parsingErrors: Error[] = [];
   return {
@@ -69,6 +114,7 @@ export function createDummyStyleSheet(node: css.Node): css.StyleSheet {
     },
   };
 }
+
 
 export class NodeSet {
   private store: { [id: string]: css.Node } = {};

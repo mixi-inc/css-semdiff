@@ -1,3 +1,8 @@
+/// <reference path="./typings/bundle.d.ts" />
+
+import * as assert from "assert";
+
+
 export class OrderedStringSet {
   private order: string[] = [];
   private store: { [key: string]: void } = {};
@@ -67,4 +72,10 @@ export function cut<T>(index: number, array: T[]): [T[], T[]] {
 
 export function isEmpty(array: { length: number }): boolean {
   return array.length <= 0;
+}
+
+export function uncons<T>(array: T[]): [T, T[]] {
+  assert(array.length > 0, "uncons can handle only non-empty string");
+
+  return <[T, T[]]> [array[0], array.slice(1)];
 }

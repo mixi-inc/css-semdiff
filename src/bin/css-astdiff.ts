@@ -1,13 +1,12 @@
 #! /usr/bin/env node
 /// <reference path="../typings/bundle.d.ts" />
-/// <reference path="../typings/css/css.d.ts" />
 
 import * as commander from "commander";
-import * as css from "css";
-import {parseFiles, createDummyStyleSheet} from "../css_utils";
+import {parseFiles} from "../css_utils";
 import {astDiff} from "../ast_diff";
-import {isEmpty} from "../collection_utils";
 import {getVersion} from "../cli_utils";
+import {formatAstDiffResult, formatAstDiffResultVerbose} from "../format/ast_diff";
+import {stringifyErrorLike} from "../error_utils";
 
 
 enum StatusCode {
@@ -24,49 +23,32 @@ const cli = commander
   .parse(process.argv);
 
 
-type Options = {
+interface Options {
   verbose: boolean;
-};
+}
 
 
 function astDiffByFiles(filePathA: string, filePathB: string, options?: Options): void {
   parseFiles(filePathA, filePathB)
     .then((tuple) => astDiff(tuple[0], tuple[1]))
     .then((result) => {
-      const {changed, extra, missing} = result;
-      if (changed) {
-        if (options.verbose) {
-          if (!isEmpty(extra)) {
-            console.log(formatNodes(extra, "extra"));
-          }
+      const {changed} = result;
 
-          if (!isEmpty(missing)) {
-            console.log(formatNodes(missing, "missing"));
-          }
-        }
-        console.log(`${extra.length} extra rules and ${missing.length} missing rules ` +
-            `between ${filePathA} and ${filePathB}`);
-      }
+      console.log(options.verbose
+        ? formatAstDiffResultVerbose(result)
+        : formatAstDiffResult(result));
 
-      return changed ? StatusCode.CHANGED : StatusCode.NOT_CHANGED;
-    }, (err) => {
+      return changed
+        ? StatusCode.CHANGED
+        : StatusCode.NOT_CHANGED;
+    })
+    .catch((errorLike) => {
+      console.error(`Error: ${stringifyErrorLike(errorLike)}`);
       return StatusCode.ERROR;
     })
-    .then((statusCode) => process.exit(statusCode));
-}
-
-
-function formatNodes(nodes: css.Node[], msg: string): string {
-  return nodes
-    .map(createDummyStyleSheet)
-    .map((styleSheet) => css.stringify(styleSheet))
-    .map((cssString) => `${msg}:\n${indent(cssString)}`)
-    .join("\n\n");
-}
-
-
-function indent(str: string): string {
-  return str.split("\n").map((line) => `\t${line}`).join("\n");
+    .then((statusCode) => {
+      (<any> process).exitCode = statusCode;
+    });
 }
 
 

@@ -14,16 +14,16 @@
   },
   "dependencies": {
     "node/node.d.ts": {
-      "ref": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "ref": "08ed4e9f1869e37e29514d862e0158b40e550232"
     },
     "es6-promise/es6-promise.d.ts": {
-      "ref": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "ref": "08ed4e9f1869e37e29514d862e0158b40e550232"
     },
     "mocha/mocha.d.ts": {
-      "ref": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "ref": "08ed4e9f1869e37e29514d862e0158b40e550232"
     },
     "commander/commander.d.ts": {
-      "ref": "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "ref": "08ed4e9f1869e37e29514d862e0158b40e550232"
     }
   }
 }

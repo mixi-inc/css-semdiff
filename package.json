@@ -4,6 +4,7 @@
   "description": "Semantic diff tool for CSS",
   "main": "index.js",
   "dependencies": {
+    "chardet": "^0.1.0",
     "commander": "^2.8.1",
     "css": "^2.2.1",
     "dtsm": "^1.0.0",

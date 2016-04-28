@@ -3,10 +3,11 @@
 /// <reference path="../typings/css/css.d.ts" />
 
 import * as commander from "commander";
-import {isEmpty} from "../collection_utils";
 import {parseFiles} from "../css_utils";
 import {orderDiff} from "../order_diff";
 import {getVersion} from "../cli_utils";
+import {formatOrderDiffResult, formatOrderDiffResultVerbose} from "../format/order_diff";
+import {stringifyErrorLike} from "../error_utils";
 
 
 enum StatusCode {
@@ -23,9 +24,9 @@ const cli = commander
   .parse(process.argv);
 
 
-type Options = {
+interface Options {
   verbose: boolean;
-};
+}
 
 
 const defaultOptions: Options = {
@@ -37,28 +38,22 @@ function orderDiffByFiles(filePathA: string, filePathB: string, options: Options
   parseFiles(filePathA, filePathB)
     .then((tuple) => orderDiff(tuple[0], tuple[1]))
     .then((result) => {
+      console.log(options.verbose
+        ? formatOrderDiffResultVerbose(result)
+        : formatOrderDiffResult(result));
+
       const changedSelectors = Object.keys(result);
-      changedSelectors.forEach((selector) => {
-        const {uptrends, downtrends} = result[selector];
-
-        console.log(`order changed: ${selector}`);
-
-        if (options.verbose) {
-          if (!isEmpty(uptrends)) {
-            console.log(`\tbecome to be lower than:\n\t\t${uptrends.join(",\n\t\t")}\n`);
-          }
-          if (!isEmpty(downtrends)) {
-            console.log(`\tbecome to be higher than:\n\t\t${downtrends.join(",\n\t\t")}\n`);
-          }
-        }
-      });
-
-      return changedSelectors.length > 0 ? StatusCode.CHANGED : StatusCode.NOT_CHANGED;
-    }, (err) => {
-      console.error(err);
+      return changedSelectors.length > 0
+        ? StatusCode.CHANGED
+        : StatusCode.NOT_CHANGED;
+    })
+    .catch((errorLike) => {
+      console.error(`Error: ${stringifyErrorLike(errorLike)}`);
       return StatusCode.ERROR;
     })
-    .then((statusCode) => process.exit(statusCode));
+    .then((statusCode) => {
+      (<any> process).exitCode = statusCode;
+    });
 }
 
 
