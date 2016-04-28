@@ -5,22 +5,33 @@ CSS Semantic Diff
 [![npm version](https://badge.fury.io/js/css-semdiff.svg)](http://badge.fury.io/js/css-semdiff)
 
 
+
 Install
 -------
 
-```shell
-npm install -g css-semdiff
+```console
+$ npm install -g css-semdiff
 ```
+
 
 
 Usage
 -----
-
 ### Comparing by Abstract Syntax Tree
+#### Comparing files
 
-```shell
-css-astdiff a.css b.css
+```console
+$ css-astdiff a.css b.css
 ```
+
+
+
+#### Comparing streams
+
+```console
+$ css-astdiff <(cat a.css) <(b.css)
+```
+
 
 
 #### Options
@@ -28,38 +39,57 @@ css-astdiff a.css b.css
 - `--verbose`: Display verbose output
 
 
+
 #### Output
 
-```
-$ css-astdiff a.css b.css --verbose
-23 extra rules and 23 missing rules between a.css and b.css
+```console
+$ css-astdiff a.css b.css
+2 extra rules and 2 missing rules
 ```
 
-```
+```console
 $ css-astdiff a.css b.css --verbose
 extra:
-        #header ul {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: -moz-box;
-          display: flex;
-        }
+  .extra-1 {
+    border: none;
+  }
+
+extra:
+  .extra-2 {
+    border: none;
+  }
 
 missing:
-        #header ul {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: flex;
-        }
-23 extra rules and 23 missing rules between a.css and b.css
+  .missing-1 {
+    border: none;
+  }
+
+missing:
+  .missing-2 {
+    border: none;
+  }
+
+---------------------------------
+2 extra rules and 2 missing rules
 ```
+
 
 
 ### Comparing by Rule Order
+#### Comparing files
 
-```shell
-css-orderdiff a.css b.css
+```console
+$ css-orderdiff a.css b.css
 ```
+
+
+
+#### Comparing streams
+
+```console
+$ css-orderdiff <(cat a.css) <(cat b.css)
+```
+
 
 
 #### Options
@@ -67,25 +97,33 @@ css-orderdiff a.css b.css
 - `--verbose`: Display verbose output
 
 
+
 #### Output
 
-```
-$ css-orderdiff a.css b.css
-order changed: #footDisplay
-order changed: .error #mainDisplay
+```console
+$ css-orderdiff fixtures/order/a.css fixtures/order/b.css
+3 selectors changed
 ```
 
-```
-$ css-orderdiff a.css b.css --verbose
-order changed: #footDisplay
-        become to be higher than:
-                .error #mainDisplay,
-                .webView01 #mainDisplay
+```console
+$ css-orderdiff fixtures/order/a.css fixtures/order/b.css --verbose
+order changed: a
+    become to be lower than:
+      b
+      i
 
-order changed: .error #mainDisplay
-        become to be lower than:
-                #footDisplay
+order changed: b
+    become to be higher than:
+      a
+
+order changed: i
+    become to be higher than:
+      a
+
+-------------------
+3 selectors changed
 ```
+
 
 
 License
