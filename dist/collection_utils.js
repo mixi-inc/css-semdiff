@@ -65,4 +65,3 @@ function isEmpty(array) {
     return array.length <= 0;
 }
 exports.isEmpty = isEmpty;
-//# sourceMappingURL=collection_utils.js.map
