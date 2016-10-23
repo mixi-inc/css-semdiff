@@ -1,5 +1,3 @@
-/// <reference path="../typings/css/css.d.ts" />
-
 import * as css from "css";
 import {ConsoleDocument} from "./console_document";
 import {stringifyCssNode} from "../css_utils";

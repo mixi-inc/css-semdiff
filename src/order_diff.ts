@@ -1,5 +1,3 @@
-/// <reference path="typings/css/css.d.ts" />
-
 import * as css from "css";
 import {
   OrderedStringSet,
@@ -8,17 +6,18 @@ import {
   isEmpty,
 } from "./collection_utils";
 import {collectRuleNodes} from "./css_utils";
+import {NoSelectorsError} from "./error";
 
 export interface OrderDiffResult {
   [selector: string]: {
-    uptrends: css.Selector[];
-    downtrends: css.Selector[];
+    uptrends: string[];
+    downtrends: string[];
   };
 }
 
-export function orderDiff(a: css.StyleSheet, b: css.StyleSheet): OrderDiffResult {
-  const selectorsA = new OrderedStringSet(flatMap(collectRuleNodes(a), (ruleNode) => ruleNode.selectors));
-  const selectorsB = new OrderedStringSet(flatMap(collectRuleNodes(b), (ruleNode) => ruleNode.selectors));
+export function orderDiff(a: css.Stylesheet, b: css.Stylesheet): OrderDiffResult {
+  const selectorsA = new OrderedStringSet(flatMap(collectRuleNodes(a), getSelectorsByRuleNode));
+  const selectorsB = new OrderedStringSet(flatMap(collectRuleNodes(b), getSelectorsByRuleNode));
 
   const commonSelectorsA = selectorsA.intersection(selectorsB).toArray();
   const commonSelectorsB = selectorsB.intersection(selectorsA).toArray();
@@ -26,7 +25,12 @@ export function orderDiff(a: css.StyleSheet, b: css.StyleSheet): OrderDiffResult
   return orderDiffImpl(commonSelectorsA, commonSelectorsB);
 }
 
-function orderDiffImpl(selectorsA: css.Selector[], selectorsB: css.Selector[]): OrderDiffResult {
+function getSelectorsByRuleNode(ruleNode: css.Rule): string[] {
+  if (!ruleNode.selectors) throw NoSelectorsError.causedBy("the given one");
+  return ruleNode.selectors;
+}
+
+function orderDiffImpl(selectorsA: string[], selectorsB: string[]): OrderDiffResult {
   if (selectorsA.length !== selectorsB.length) {
     throw new Error(`Lengths of two selectors must be equivalent: ${selectorsA.length} !== ${selectorsB.length}`);
   }

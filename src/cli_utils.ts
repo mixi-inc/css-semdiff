@@ -1,5 +1,3 @@
-/// <reference path="./typings/bundle.d.ts" />
-
 import * as Fs from "fs";
 import * as Path from "path";
 import {parseFile} from "./css_utils";
@@ -13,7 +11,7 @@ export function getVersion(): string {
 }
 
 
-export function getStyleSheetPair(args: string[]): Promise<[css.StyleSheet, css.StyleSheet]> {
+export function getStyleSheetPair(args: string[]): Promise<[css.Stylesheet, css.Stylesheet]> {
   if (args.length === 2) {
     const [filePathA, filePathB] = args;
 

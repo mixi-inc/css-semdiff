@@ -1,5 +1,3 @@
-/// <reference path="typings/css/css.d.ts" />
-
 import * as css from "css";
 
 import {
@@ -10,6 +8,7 @@ import {
   uniformNode,
   NodeSet,
 } from "./css_utils";
+import {NoRulesError} from "./error";
 
 export interface AstDiffResult {
   changed: boolean;
@@ -17,7 +16,10 @@ export interface AstDiffResult {
   missing: css.Node[];
 }
 
-export function astDiff(a: css.StyleSheet, b: css.StyleSheet): AstDiffResult {
+export function astDiff(a: css.Stylesheet, b: css.Stylesheet): AstDiffResult {
+  if (!(a.stylesheet && a.stylesheet.rules)) throw NoRulesError.causedByFirst();
+  if (!(b.stylesheet && b.stylesheet.rules)) throw NoRulesError.causedBySecond();
+
   return astDiffImpl(a.stylesheet.rules, b.stylesheet.rules);
 }
 

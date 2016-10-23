@@ -1,6 +1,3 @@
-/// <reference path="../typings/bundle.d.ts" />
-/// <reference path="../typings/css/css.d.ts" />
-
 import * as assert from "assert";
 import * as css from "css";
 import {astDiff} from "../ast_diff";
@@ -74,8 +71,8 @@ function assertNodeTypeEqual(node: css.Node, nodeType: string): void {
   assert.strictEqual(node.type, nodeType);
 }
 
-function assertRuleNodeEqual(node: css.Node, selectors: css.Selector[]): void {
+function assertRuleNodeEqual(node: css.Node, selectors: string[]): void {
   assertNodeTypeEqual(node, "rule");
-  const ruleNode = <css.RuleNode>node;
+  const ruleNode = <css.Rule>node;
   assert.deepEqual(ruleNode.selectors, selectors);
 }

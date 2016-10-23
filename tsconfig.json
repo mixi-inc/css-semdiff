@@ -2,12 +2,17 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
-        "noImplicitAny": true,
         "outDir": "dist",
-        "rootDir": "src"
+        "rootDir": "src",
+        "lib": ["es2015"],
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true
     },
     "exclude": [
-        "node_modules",
-        "typings"
+        "node_modules"
     ]
 }

@@ -18,7 +18,7 @@ function isErrorLike(x: any): x is ErrorLike {
 
 
 function isErrorLikeWithStack(x: any): x is ErrorLikeWithStack {
-  return isErrorLike(x) && typeof x.stack === "string";
+  return isErrorLike(x) && typeof (x as { stack?: string }).stack === "string";
 }
 
 

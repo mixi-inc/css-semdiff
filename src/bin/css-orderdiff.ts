@@ -1,6 +1,4 @@
 #! /usr/bin/env node
-/// <reference path="../typings/bundle.d.ts" />
-/// <reference path="../typings/css/css.d.ts" />
 
 import * as commander from "commander";
 import * as css from "css";
@@ -29,7 +27,7 @@ interface Options {
 }
 
 
-function runOrderDiff(styleSheets: Promise<[css.StyleSheet, css.StyleSheet]>, options: Options): Promise<void> {
+function runOrderDiff(styleSheets: Promise<[css.Stylesheet, css.Stylesheet]>, options: Options): Promise<void> {
   return styleSheets
     .then((tuple) => orderDiff(tuple[0], tuple[1]))
     .then((result) => {

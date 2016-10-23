@@ -1,5 +1,3 @@
-/// <reference path="./typings/bundle.d.ts" />
-
 import * as assert from "assert";
 
 
@@ -45,7 +43,7 @@ export class OrderedStringSet {
   }
 
   public toArray(): string[] {
-    return [].concat(this.order);
+    return clone(this.order);
   }
 }
 
@@ -72,6 +70,10 @@ export function cut<T>(index: number, array: T[]): [T[], T[]] {
 
 export function isEmpty(array: { length: number }): boolean {
   return array.length <= 0;
+}
+
+export function clone<T>(array: T[]): T[] {
+  return Array.prototype.slice.call(array);
 }
 
 export function uncons<T>(array: T[]): [T, T[]] {

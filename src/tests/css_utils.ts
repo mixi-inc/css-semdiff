@@ -1,9 +1,7 @@
-/// <reference path="../typings/bundle.d.ts" />
-/// <reference path="../typings/css/css.d.ts" />
-
 import * as assert from "assert";
 import * as css from "css";
 import {NodeSet} from "../css_utils";
+import {NoRulesError} from "../error";
 
 describe("NodeSet", () => {
   describe("#constructor", () => {
@@ -162,7 +160,13 @@ function assertSetEqual(set: NodeSet, nodes: css.Node[]): void {
 }
 
 function createNode(cssText: string): css.Node {
-  return css.parse(cssText).stylesheet.rules[0];
+  const result = css.parse(cssText);
+
+  if (!(result.stylesheet && result.stylesheet.rules)) {
+    throw NoRulesError.causedBy("the given one");
+  }
+
+  return result.stylesheet.rules[0];
 }
 
 function createRuleNodeA(): css.Node {

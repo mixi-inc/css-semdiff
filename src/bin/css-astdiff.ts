@@ -1,5 +1,4 @@
 #! /usr/bin/env node
-/// <reference path="../typings/bundle.d.ts" />
 
 import * as commander from "commander";
 import * as css from "css";
@@ -28,7 +27,7 @@ interface Options {
 }
 
 
-function runAstDiff(styleSheets: Promise<[css.StyleSheet, css.StyleSheet]>, options: Options): Promise<void> {
+function runAstDiff(styleSheets: Promise<[css.Stylesheet, css.Stylesheet]>, options: Options): Promise<void> {
   return styleSheets
     .then((tuple) => astDiff(tuple[0], tuple[1]))
     .then((result) => {

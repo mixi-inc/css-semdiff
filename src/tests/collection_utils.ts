@@ -1,5 +1,3 @@
-/// <reference path="../typings/bundle.d.ts" />
-
 import * as assert from "assert";
 import {OrderedStringSet} from "../collection_utils";
 
