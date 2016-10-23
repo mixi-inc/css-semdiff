@@ -6,8 +6,7 @@
   "dependencies": {
     "chardet": "^0.1.0",
     "commander": "^2.9.0",
-    "css": "^2.2.1",
-    "es6-promise": "^4.0.5"
+    "css": "^2.2.1"
   },
   "devDependencies": {
     "@types/commander": "^2.3.30",
