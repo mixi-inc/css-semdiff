@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as css from "css";
-import {orderDiff, OrderDiffResult} from "../order_diff";
-import {keys} from "../collection_utils";
+import {orderDiff, OrderDiffResult} from "./order_diff";
+import {keys} from "./collection_utils";
 
 describe("orderDiff", () => {
   it("should return empty result when no differences exist between specified 2 StyleSheets", () => {

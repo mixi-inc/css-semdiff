@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as css from "css";
-import {NodeSet} from "../css_utils";
-import {NoRulesError} from "../error";
+import {NodeSet} from "./css_utils";
+import {NoRulesError} from "./error";
 
 describe("NodeSet", () => {
   describe("#constructor", () => {
