@@ -1,6 +1,5 @@
 #! /usr/bin/env node
 
-import {Promise} from "es6-promise";
 import * as commander from "commander";
 import * as css from "css";
 import {orderDiff} from "../order_diff";

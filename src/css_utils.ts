@@ -1,6 +1,5 @@
 import * as Fs from "fs";
 import * as css from "css";
-import {Promise} from "es6-promise";
 import {flatMap} from "./collection_utils";
 
 
