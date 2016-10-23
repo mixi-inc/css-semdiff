@@ -1,9 +1,13 @@
 import * as Fs from "fs";
 import * as css from "css";
-import {flatMap} from "./collection_utils";
+import {flatMap, clone} from "./collection_utils";
+import {NoRulesError, NoSelectorsError} from "./error";
 
 
 export function collectRuleNodes(styleSheet: css.Stylesheet): css.Rule[] {
+  if (!(styleSheet.stylesheet && styleSheet.stylesheet.rules))
+    throw NoRulesError.causedBy("the given one");
+
   return flatMap(styleSheet.stylesheet.rules,
       (node) => isRuleNode(node) ? [node] : []);
 }
@@ -58,6 +62,8 @@ export function uniformNode(node: css.Node): css.Node[] {
 
 
 function uniformRuleNode(ruleNode: css.Rule): css.Rule[] {
+  if (!(ruleNode.selectors)) throw NoSelectorsError.causedBy("the given one");
+
   return ruleNode.selectors.map((selector) => ({
     type: ruleNode.type,
     parent: ruleNode.parent,
@@ -132,6 +138,6 @@ export class NodeSet {
   }
 
   public toArray(): css.Node[] {
-    return [].concat(this.nodes);
+    return clone(this.nodes);
   }
 }

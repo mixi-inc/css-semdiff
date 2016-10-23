@@ -6,6 +6,7 @@ import {
   isEmpty,
 } from "./collection_utils";
 import {collectRuleNodes} from "./css_utils";
+import {NoSelectorsError} from "./error";
 
 export interface OrderDiffResult {
   [selector: string]: {
@@ -15,13 +16,18 @@ export interface OrderDiffResult {
 }
 
 export function orderDiff(a: css.Stylesheet, b: css.Stylesheet): OrderDiffResult {
-  const selectorsA = new OrderedStringSet(flatMap(collectRuleNodes(a), (ruleNode) => ruleNode.selectors));
-  const selectorsB = new OrderedStringSet(flatMap(collectRuleNodes(b), (ruleNode) => ruleNode.selectors));
+  const selectorsA = new OrderedStringSet(flatMap(collectRuleNodes(a), getSelectorsByRuleNode));
+  const selectorsB = new OrderedStringSet(flatMap(collectRuleNodes(b), getSelectorsByRuleNode));
 
   const commonSelectorsA = selectorsA.intersection(selectorsB).toArray();
   const commonSelectorsB = selectorsB.intersection(selectorsA).toArray();
 
   return orderDiffImpl(commonSelectorsA, commonSelectorsB);
+}
+
+function getSelectorsByRuleNode(ruleNode: css.Rule): string[] {
+  if (!ruleNode.selectors) throw NoSelectorsError.causedBy("the given one");
+  return ruleNode.selectors;
 }
 
 function orderDiffImpl(selectorsA: string[], selectorsB: string[]): OrderDiffResult {
