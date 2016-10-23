@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import {ConsoleDocument} from "../format/console_document";
+import {ConsoleDocument} from "./format/console_document";
 
 
 describe("ConsoleDocument", () => {

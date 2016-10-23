@@ -27,7 +27,7 @@
     "build": "npm-run-all prebuild build:typescript",
     "watch": "tsc --watch",
     "pretest": "npm run build",
-    "test": "mocha --opts mocha.opts dist/tests",
+    "test": "mocha --opts mocha.opts './dist/**/*.test.js'",
     "lint": "tslint src/**/*.ts"
   },
   "bin": {

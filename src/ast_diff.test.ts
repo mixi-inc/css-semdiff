@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as css from "css";
-import {astDiff} from "../ast_diff";
+import {astDiff} from "./ast_diff";
 
 describe("astDiff", () => {
   it("should return result that represents 'no changed' when there are no changed between 2 StyleSheets", () => {

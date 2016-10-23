@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import {OrderedStringSet} from "../collection_utils";
+import {OrderedStringSet} from "./collection_utils";
 
 describe("OrderedStringSet", () => {
   describe("#union", () => {
