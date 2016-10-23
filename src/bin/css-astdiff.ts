@@ -1,6 +1,6 @@
 #! /usr/bin/env node
-/// <reference path="../typings/bundle.d.ts" />
 
+import {Promise} from "es6-promise";
 import * as commander from "commander";
 import * as css from "css";
 import {astDiff} from "../ast_diff";
@@ -28,7 +28,7 @@ interface Options {
 }
 
 
-function runAstDiff(styleSheets: Promise<[css.StyleSheet, css.StyleSheet]>, options: Options): Promise<void> {
+function runAstDiff(styleSheets: Promise<[css.Stylesheet, css.Stylesheet]>, options: Options): Promise<void> {
   return styleSheets
     .then((tuple) => astDiff(tuple[0], tuple[1]))
     .then((result) => {

@@ -1,13 +1,10 @@
-/// <reference path="./typings/bundle.d.ts" />
-/// <reference path="./typings/css/css.d.ts" />
-
 import * as Fs from "fs";
 import * as css from "css";
 import {Promise} from "es6-promise";
 import {flatMap} from "./collection_utils";
 
 
-export function collectRuleNodes(styleSheet: css.StyleSheet): css.RuleNode[] {
+export function collectRuleNodes(styleSheet: css.Stylesheet): css.Rule[] {
   return flatMap(styleSheet.stylesheet.rules,
       (node) => isRuleNode(node) ? [node] : []);
 }
@@ -61,7 +58,7 @@ export function uniformNode(node: css.Node): css.Node[] {
 }
 
 
-function uniformRuleNode(ruleNode: css.RuleNode): css.RuleNode[] {
+function uniformRuleNode(ruleNode: css.Rule): css.Rule[] {
   return ruleNode.selectors.map((selector) => ({
     type: ruleNode.type,
     parent: ruleNode.parent,
@@ -72,12 +69,12 @@ function uniformRuleNode(ruleNode: css.RuleNode): css.RuleNode[] {
 }
 
 
-export function isRuleNode(node: css.Node): node is css.RuleNode {
+export function isRuleNode(node: css.Node): node is css.Rule {
   return node.type === "rule";
 }
 
 
-export function parseFile(filePath: string): Promise<css.StyleSheet> {
+export function parseFile(filePath: string): Promise<css.Stylesheet> {
   return new Promise((resolve, reject) => {
     Fs.readFile(filePath, "utf8", (err, data) => {
       if (err) {
@@ -99,7 +96,7 @@ export function stringifyCssNode(node: css.Node): string {
 }
 
 
-export function createDummyStyleSheet(node: css.Node): css.StyleSheet {
+export function createDummyStyleSheet(node: css.Node): css.Stylesheet {
   const parsingErrors: Error[] = [];
   return {
     type: "stylesheet",

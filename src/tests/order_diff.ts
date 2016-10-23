@@ -1,6 +1,3 @@
-/// <reference path="../typings/bundle.d.ts" />
-/// <reference path="../typings/css/css.d.ts" />
-
 import * as assert from "assert";
 import * as css from "css";
 import {orderDiff, OrderDiffResult} from "../order_diff";
@@ -59,6 +56,6 @@ describe("orderDiff", () => {
 });
 
 
-function assertDiffHasSelectors(results: OrderDiffResult, selectors: css.Selector[]): void {
+function assertDiffHasSelectors(results: OrderDiffResult, selectors: string[]): void {
   assert.deepEqual(keys(results), selectors);
 }

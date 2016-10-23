@@ -1,5 +1,3 @@
-/// <reference path="typings/css/css.d.ts" />
-
 import * as css from "css";
 
 import {
@@ -17,7 +15,7 @@ export interface AstDiffResult {
   missing: css.Node[];
 }
 
-export function astDiff(a: css.StyleSheet, b: css.StyleSheet): AstDiffResult {
+export function astDiff(a: css.Stylesheet, b: css.Stylesheet): AstDiffResult {
   return astDiffImpl(a.stylesheet.rules, b.stylesheet.rules);
 }
 

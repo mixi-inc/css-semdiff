@@ -7,20 +7,23 @@
     "chardet": "^0.1.0",
     "commander": "^2.8.1",
     "css": "^2.2.1",
-    "dtsm": "^1.0.0",
-    "es6-promise": "^3.0.2",
-    "typescript": "^1.8.10"
+    "es6-promise": "^3.0.2"
   },
   "devDependencies": {
+    "@types/commander": "^2.3.30",
+    "@types/css": "0.0.30",
+    "@types/es6-promise": "0.0.32",
+    "@types/mocha": "^2.2.32",
+    "@types/node": "^6.0.45",
     "assert-polyfill": "0.0.0",
     "mocha": "^2.3.3",
     "npm-run-all": "^1.8.0",
     "rimraf": "^2.5.2",
-    "tslint": "^3.8.1"
+    "tslint": "^3.8.1",
+    "typescript": "^2.0.3"
   },
   "scripts": {
-    "prepublish": "npm-run-all lint typings build test",
-    "typings": "dtsm install",
+    "prepublish": "npm-run-all lint build test",
     "prebuild": "rimraf dist",
     "build:typescript": "tsc",
     "build": "npm-run-all prebuild build:typescript",
